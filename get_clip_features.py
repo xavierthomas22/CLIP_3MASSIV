@@ -16,7 +16,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', '-cfg', default='')
     parser.add_argument('--temp_path', default='')
-    parser.add_argument('--device', default='cuda', required=True)
+    parser.add_argument('--device', required=True)
     parser.add_argument('--num_worker', type=int, default=8)
     parser.add_argument('--url', type=str, required=True)
     args = parser.parse_args()

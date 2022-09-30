@@ -90,11 +90,11 @@ class ClipManager():
         self.transform_image = get_augmentation(False, self.config)
 
         self.model_image = ImageCLIP(self.model)
-        self.model_image = torch.nn.DataParallel(self.model_image).cuda()
 
         if self.device == "cpu":
             self.model_image.float()
         else :
+            self.model_image = torch.nn.DataParallel(self.model_image).cuda()
             clip.model.convert_weights(self.model_image)
 
         self.load_pretrain()
