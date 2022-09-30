@@ -12,6 +12,20 @@ import random
 from numpy.random import randint
 import numpy as np
 from PIL import Image, ImageOps
+import functools
+import time
+
+def timer(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        value = func(*args, **kwargs)
+        end_time = time.perf_counter()
+        run_time = end_time - start_time
+        print("\nFinished {} in {} secs\n".format(repr(func.__name__), round(run_time, 3)))
+        return value
+
+    return wrapper
 
 def remove(path):
     """ param <path> could either be relative or absolute. """
@@ -22,6 +36,7 @@ def remove(path):
     else:
         raise ValueError("file {} is not a file or dir.".format(path))
 
+@timer
 def download_vid(url, temp_vid_path):
     wget.download(url, out=temp_vid_path)
 
@@ -42,7 +57,7 @@ def dump_frames(video_path, frame_out_dir, vid_name):
     sys.stdout.flush()
     return True
 
-
+@timer
 def get_frames(temp_vid_path, temp_frames_subfolder, vid_name, args):
     # pool = Pool(args.num_worker)
     # pool.map(dump_frames, full_path)
@@ -115,4 +130,6 @@ class Frame_DATASET(data.Dataset):
         process_data = self.transform(images)
         return process_data
 
-    
+@timer
+def get_clip_emb(model, image):
+    return model(image)

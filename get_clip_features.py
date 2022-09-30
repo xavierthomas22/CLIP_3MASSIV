@@ -28,18 +28,6 @@ class ImageCLIP(torch.nn.Module):
         return self.model.encode_image(image)
 
 
-def timer(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        start_time = time.perf_counter()
-        value = func(*args, **kwargs)
-        end_time = time.perf_counter()
-        run_time = end_time - start_time
-        print("Finished {} in {} secs".format(repr(func.__name__), round(run_time, 3)))
-        return value
-
-    return wrapper
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', '-cfg', default='')
@@ -123,7 +111,7 @@ def main():
     b,t,c,h,w = processed_frames.size()
     processed_frames = processed_frames.to(device).view(-1,c,h,w ) 
 
-    frames_clip_emb = model_image(processed_frames).view(b, t, -1)
+    frames_clip_emb = get_clip_emb(model_image, processed_frames).view(b, t, -1)
     mean_frames_clip_emb = torch.mean(frames_clip_emb, dim=1)
 
     print('CLIP Features extracted with dim: ', mean_frames_clip_emb.shape)
@@ -132,7 +120,7 @@ def main():
     remove(temp_vid_path)
     remove(temp_frames_folder)
     
-    print(f'Time: {time.time() - start}')
+    print(f'Total Time Taken: {time.time() - start}')
 
 
 
