@@ -1,0 +1,16 @@
+pretrain: '/home/xavier.thomas/projects/ActionCLIP/pretrained_models/vit-b-16-32f.pt'
+seed: 1024
+data:
+    dataset: 3MASSIV
+    modality: RGB
+    input_size: 224
+    num_segments: 16
+    seg_length: 1
+    image_tmpl: 'img_{:05d}.jpg'
+    index_bias: 1
+    randaug:
+        N: 0 #2
+        M: 0  #9
+network:
+    arch: ViT-B/16  #ViT-B/32 ViT-B/16
+    type: CLIP_3MASSIV
