@@ -28,6 +28,7 @@ def main():
     # create temp folders
     args = create_temp_folders(args) # created folders saved into args
 
+    # get clip features
     clip_manager = ClipManager(args, config)
     features = clip_manager.extract_features()
 
