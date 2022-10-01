@@ -25,11 +25,12 @@ def timer(func):
         value = func(*args, **kwargs)
         end_time = time.perf_counter()
         run_time = end_time - start_time
-        print("\nFinished {} in {} secs".format(repr(func.__name__), round(run_time, 3)))
+        print("\nFinished {} in {} secs".format(repr(func.__name__), round(run_time, 4)))
         return value
 
     return wrapper
 
+@timer
 def remove(path):
     """ param <path> could either be relative or absolute. """
     if os.path.isfile(path) or os.path.islink(path):
@@ -39,9 +40,11 @@ def remove(path):
     else:
         raise ValueError("file {} is not a file or dir.".format(path))
 
+@timer
 def download_vid(url, temp_vid_path):
     wget.download(url, out=temp_vid_path)
 
+@timer
 def setup_config(args):
     with open(args.config, 'r') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
@@ -68,7 +71,7 @@ def dump_frames(video_path, frame_out_dir, vid_name):
     sys.stdout.flush()
     return True
 
-
+@timer
 def get_frames(temp_vid_path, temp_frames_subfolder, vid_name):
     # pool = Pool(args.num_worker)
     # pool.map(dump_frames, full_path)
@@ -77,7 +80,7 @@ def get_frames(temp_vid_path, temp_frames_subfolder, vid_name):
 def get_clip_emb(model, image):
     return model(image)
 
-
+@timer
 def create_temp_folders(args):
     temp_dir = args.temp_path
     if not os.path.isdir(temp_dir + '/' + 'temp_vid'):

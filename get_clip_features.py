@@ -23,13 +23,11 @@ def main():
 
     start = time.time()
 
-    config = setup_config(args)
-
     # create temp folders
     args = create_temp_folders(args) # created folders saved into args
 
     # get clip features
-    clip_manager = ClipManager(args, config)
+    clip_manager = ClipManager(args)
     features = clip_manager.extract_features()
 
     # cleanup

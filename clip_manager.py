@@ -80,13 +80,13 @@ class Frame_DATASET(data.Dataset):
         return process_data
 
 class ClipManager():
-    def __init__(self, args, config) :
+    def __init__(self, args) :
         super(ClipManager, self).__init__()
 
         self.args = args
-        self.config = config
+        self.config = setup_config(args)
         self.device = self.args.device
-        self.model, self.clip_state_dict = clip.load(config.network.arch,device=self.device) #Must set jit=False for training  ViT-B/32
+        self.model, self.clip_state_dict = clip.load(self.config.network.arch,device=self.device) #Must set jit=False for training  ViT-B/32
         self.transform_image = get_augmentation(False, self.config)
 
         self.model_image = ImageCLIP(self.model)
