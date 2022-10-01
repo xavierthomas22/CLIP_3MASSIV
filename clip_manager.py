@@ -97,7 +97,7 @@ class ClipManager():
             self.model_image = torch.nn.DataParallel(self.model_image).cuda()
             clip.model.convert_weights(self.model_image)
 
-        self.load_pretrain()
+        # self.load_pretrain()
         self.download_and_process_vid()
 
         self.frame_data = Frame_DATASET(frame_path=self.args.temp_frames_subfolder, num_segments=self.config.data.num_segments,image_tmpl=self.config.data.image_tmpl,random_shift=self.config.data.random_shift,

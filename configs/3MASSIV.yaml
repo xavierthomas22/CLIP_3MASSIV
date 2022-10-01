@@ -1,4 +1,4 @@
-pretrain: '/home/xavier.thomas/projects/ActionCLIP/pretrained_models/vit-b-16-32f.pt'
+pretrain: ''
 seed: 1024
 data:
     dataset: 3MASSIV
