@@ -5,7 +5,7 @@ from utils.Augmentation import *
 import torch
 import argparse
 import os
-from helpers import *
+from helpers.clip_helpers import *
 import tempfile
 import time
 

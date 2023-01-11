@@ -2,3 +2,7 @@ temp_frames/*
 temp_vid/*
 
 *.pyc
+
+src/*
+
+outputs/*

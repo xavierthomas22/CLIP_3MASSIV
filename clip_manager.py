@@ -2,7 +2,7 @@ import torch
 import clip
 import os
 from utils.Augmentation import *
-from helpers import *
+from helpers.clip_helpers import *
 
 class ImageCLIP(torch.nn.Module):
     def __init__(self, model) :
